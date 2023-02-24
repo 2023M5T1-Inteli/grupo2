@@ -73,6 +73,10 @@ public class Graph {
                     this.addEdge(currentVertex, currentVertex - 1);
                     this.addEdge(currentVertex, currentVertex + x);
                     this.addEdge(currentVertex, currentVertex + x + 1);
+                } else if (i == 0 && j == 0) {
+                    this.addEdge(currentVertex, currentVertex + 1);
+                    this.addEdge(currentVertex, currentVertex + x + 1);
+                    this.addEdge(currentVertex, currentVertex + x + 2);
                 }
                 currentVertex++;
             }
