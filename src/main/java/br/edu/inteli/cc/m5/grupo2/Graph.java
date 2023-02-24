@@ -81,5 +81,18 @@ public class Graph {
         resultPath[0] = initial; // o primeiro vértice é o inicial
         int i = 1; // começa a partir do segundo vértice
 
+        // Condição quando Xa < Xb
+        if (Xsteps < 0) {
+            for (int j = 0; j > Xsteps; j--) {
+                currentVertex = this.vertices.get(currentVertex.getId() - 1);
+                resultPath[i] = currentVertex;
+                i++;
+            }
+        }
+
+       
+        return resultPath;
 
     }
+
+}
