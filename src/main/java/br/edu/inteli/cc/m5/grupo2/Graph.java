@@ -98,7 +98,16 @@ public class Graph {
                 i++;
             }
         }
-        
+
+        // Condição quando Ya < Yb
+        if (Ysteps < 0) {
+            for (int j = 0; j > Ysteps; j--) {
+                currentVertex = this.vertices.get(currentVertex.getId() - ((int) Xsteps) - 1);
+                resultPath[i] = currentVertex;
+                i++;
+            }
+        }
+
 
         return resultPath;
 
