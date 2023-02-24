@@ -30,43 +30,83 @@ public class Graph {
         return this.vertices.get(vertexId).getAllConnections();
     }
 
-     public void connectVertices(int distance) {
+    public void connectVertices(int distance) {
 
         int x = (int) (this.vertices.get(this.vertices.size() - 1).getLatitude() - this.vertices.get(0).getLatitude());
-        x = x/distance;
+        x = x / distance;
 
         int y = (int) (this.vertices.get(this.vertices.size() - 1).getLongitude() - this.vertices.get(0).getLongitude());
-        y = y/distance;
+        y = y / distance;
 
         int currentVertex = 0;
         for (int i = 0; i <= x; i++) {
             for (int j = 0; j <= y; j++) {
-                if (i > 0 && j > 0){
+                //Vértice com 8 ligações
+                if (i > 0 && i < x && j > 0 && j < y) {
                     this.addEdge(currentVertex, currentVertex - x - 2);
-                }
-                if (i > 0) {
                     this.addEdge(currentVertex, currentVertex - x - 1);
-                }
-                if (i > 0 && j < y){
                     this.addEdge(currentVertex, currentVertex - x);
-                }
-                if (j > 0) {
                     this.addEdge(currentVertex, currentVertex - 1);
-                }
-                if (j < y) {
                     this.addEdge(currentVertex, currentVertex + 1);
-                }
-                if (i < x && j > 0){
                     this.addEdge(currentVertex, currentVertex + x);
-                }
-                if (i < x) {
                     this.addEdge(currentVertex, currentVertex + x + 1);
-                }
-                if (i < x && j < y){
                     this.addEdge(currentVertex, currentVertex + x + 2);
+                    //Vértice da primeira linha sem extremos
                 }
-                currentVertex ++;
+                currentVertex++;
             }
         }
     }
+
+    public Vertex[] findPath(Vertex initial, Vertex arrival) {
+
+        double Xsteps = (arrival.getLongitude() - initial.getLongitude()) / 120;
+        double Ysteps = (arrival.getLatitude() - initial.getLatitude()) / 120;
+        Xsteps = Math.round(Xsteps);
+        Ysteps = Math.round(Ysteps);
+        Vertex currentVertex = initial;
+        Vertex[] resultPath = new Vertex[(int) (Xsteps + Ysteps + 1)];
+        resultPath[0] = initial; // o primeiro vértice é o inicial
+        int i = 1; // começa a partir do segundo vértice
+
+        // Condição quando Xa < Xb
+        if (Xsteps < 0) {
+            for (int j = 0; j > Xsteps; j--) {
+                currentVertex = this.vertices.get(currentVertex.getId() - 1);
+                resultPath[i] = currentVertex;
+                i++;
+            }
+        }
+
+        // Condição quando Xa > Xb
+        if (Xsteps > 0) {
+            for (int j = 0; j < Xsteps; j++) {
+                currentVertex = this.vertices.get(currentVertex.getId() + 1);
+                resultPath[i] = currentVertex;
+                i++;
+            }
+        }
+
+        // Condição quando Ya < Yb
+        if (Ysteps < 0) {
+            for (int j = 0; j > Ysteps; j--) {
+                currentVertex = this.vertices.get(currentVertex.getId() - ((int) Xsteps) - 1);
+                resultPath[i] = currentVertex;
+                i++;
+            }
+        }
+
+        // Condição quando Ya > Yb
+        if (Ysteps > 0) {
+            for (int j = 0; j < Ysteps; j++) {
+                currentVertex = this.vertices.get(currentVertex.getId() + ((int) Xsteps) + 1);
+                resultPath[i] = currentVertex;
+                i++;
+            }
+        }
+
+        return resultPath;
+
+    }
+
 }
