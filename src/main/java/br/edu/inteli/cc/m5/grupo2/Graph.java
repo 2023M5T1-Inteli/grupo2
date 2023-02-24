@@ -90,7 +90,16 @@ public class Graph {
             }
         }
 
-       
+        // Condição quando Xa > Xb
+        if (Xsteps > 0) {
+            for (int j = 0; j < Xsteps; j++) {
+                currentVertex = this.vertices.get(currentVertex.getId() + 1);
+                resultPath[i] = currentVertex;
+                i++;
+            }
+        }
+        
+
         return resultPath;
 
     }
