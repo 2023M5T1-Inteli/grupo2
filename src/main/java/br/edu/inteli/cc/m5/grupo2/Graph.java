@@ -62,6 +62,11 @@ public class Graph {
                     this.addEdge(currentVertex, currentVertex - x);
                     this.addEdge(currentVertex, currentVertex - 1);
                     this.addEdge(currentVertex, currentVertex + 1);
+                } else if (j == 0 && i > 0 && i < x) {
+                    this.addEdge(currentVertex, currentVertex - x);
+                    this.addEdge(currentVertex, currentVertex + 1);
+                    this.addEdge(currentVertex, currentVertex + x + 1);
+                    this.addEdge(currentVertex, currentVertex + x + 2);
                 }
                 currentVertex++;
             }
