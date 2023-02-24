@@ -41,7 +41,6 @@ public class Graph {
         int currentVertex = 0;
         for (int i = 0; i <= x; i++) {
             for (int j = 0; j <= y; j++) {
-                //Vértice com 8 ligações
                 if (i > 0 && i < x && j > 0 && j < y) {
                     this.addEdge(currentVertex, currentVertex - x - 2);
                     this.addEdge(currentVertex, currentVertex - x - 1);
@@ -51,7 +50,12 @@ public class Graph {
                     this.addEdge(currentVertex, currentVertex + x);
                     this.addEdge(currentVertex, currentVertex + x + 1);
                     this.addEdge(currentVertex, currentVertex + x + 2);
-                    //Vértice da primeira linha sem extremos
+                } else if (i == 0 && j > 0 && j < y) {
+                    this.addEdge(currentVertex, currentVertex - 1);
+                    this.addEdge(currentVertex, currentVertex + 1);
+                    this.addEdge(currentVertex, currentVertex + x);
+                    this.addEdge(currentVertex, currentVertex + x + 1);
+                    this.addEdge(currentVertex, currentVertex + x + 2);
                 }
                 currentVertex++;
             }
