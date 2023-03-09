@@ -11,8 +11,6 @@
         #map { position: absolute; top: 0; bottom: 0; width: 100%; }
         #input-container { position: absolute; top: 10px; left: 10px; z-index: 1; background-color: white; padding: 10px; border-radius: 5px; }
         #submit-button { margin-top: 10px; }
-        #marker-container { position: absolute; top: 10px; left: 10px; z-index: 1; background-color: white; padding: 10px; border-radius: 5px; }
-        #add-markers-button { margin-top: 10px; }
         #scale { position: absolute; bottom: 10px; left: 10px; z-index: 1; background-color: white; padding: 5px; border-radius: 5px; }
     </style>
 </head>
@@ -30,10 +28,8 @@
             <input type='number' id='ymax' name='ymax' step='any' required />
             <br />
             <button type='submit' id='submit-button'>Submit</button>
-            <button type='button' id='add-markers-button'>Add markers</button>
         </form>
-    </div>
-    <div id='marker-container' style='display: none;'>
+
         <p>Enter the coordinates of the markers:</p>
         <form>
             <label for='origin'>Origin:</label>
@@ -47,28 +43,41 @@
     <div id='map'></div>
     <div id='scale'></div>
     <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoiYmVueWludGVsaSIsImEiOiJjbGYwM25oaWMwMjRwM3Vta2tiMjd2eGk3In0.yAOpHb-ul9chFeWMM1KOeg'
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYmVueWludGVsaSIsImEiOiJjbGYwM25oaWMwMjRwM3Vta2tiMjd2eGk3In0.yAOpHb-ul9chFeWMM1KOeg';
         var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/outdoors-v11',
-        center: [-122.4194, 37.7749],
-        zoom: 10,
-        maxBounds: [[-180, -90], [180, 90]] // Default max bounds
-    });
+            container: 'map',
+            style: 'mapbox://styles/mapbox/outdoors-v11',
+            center: [-122.4194, 37.7749],
+            zoom: 8,
+            maxBounds: [[-180, -90], [180, 90]] // Default max bounds
+        });
 
-    // Update the map bounds when the user submits the form
-    document.querySelector('form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        var xmin = parseFloat(document.querySelector('#xmin').value);
-        var ymin = parseFloat(document.querySelector('#ymin').value);
-        var xmax = parseFloat(document.querySelector('#xmax').value);
-        var ymax = parseFloat(document.querySelector('#ymax').value);
-        var bounds = [[xmin, ymin], [xmax, ymax]];
-        map.setMaxBounds(bounds);
-        map.fitBounds(bounds);
-        document.querySelector('#input-container').style.display = 'none';
-        document.querySelector('#marker-container').style.display = 'block';
+        document.querySelector('form').addEventListener('submit', function (event) {
+    event.preventDefault();
+    var xmin = parseFloat(document.querySelector('#xmin').value);
+    var ymin = parseFloat(document.querySelector('#ymin').value);
+    var xmax = parseFloat(document.querySelector('#xmax').value);
+    var ymax = parseFloat(document.querySelector('#ymax').value);
+    var bounds = [[xmin, ymin], [xmax, ymax]];
+    map.fitBounds(bounds);
+    document.querySelector('#input-container').style.display = 'none';
+
+    // Add drag ability to restrict the map within the bounds
+    map.dragPan.enable();
+    map.on('dragend', function() {
+        if (!map.getBounds().within(bounds)) {
+            var center = map.getCenter();
+            var x = center.lng;
+            var y = center.lat;
+
+            x = Math.max(xmin, Math.min(xmax, x));
+            y = Math.max(ymin, Math.min(ymax, y));
+
+            map.panTo([x, y]);
+        }
     });
+});
+
 
     // Add markers to the map when the user submits the marker form
     document.querySelector('#submit-markers').addEventListener('click', function (event) {
@@ -90,7 +99,7 @@
             .addTo(map);
 
         // Add the origin and destiny coordinates to the animated line source
-        var lineCoordinates = [originCoords, destinyCoords];
+        var lineCoordinates = [            originCoords,            destinyCoords        ];
         map.getSource('animated-line').setData({
             'type': 'Feature',
             'geometry': {
@@ -110,7 +119,6 @@
         map.fitBounds(bounds, { padding: 50 });
 
         // Animate the line
-        var previousTimestamp = performance.now();
         var counter = 0;
         requestAnimationFrame(animateLine);
 
@@ -139,8 +147,7 @@
                     }
                 });
 
-                // Move to the next point if the distance to the new
-                // point is less than the distance to the end point
+                // Move to the next point if the distance to the new point is less than the distance to the end point
                 if (turf.distance(turf.point(newPoint), turf.point(end)) < turf.distance(turf.point(start), turf.point(end))) {
                     counter++;
                 }
@@ -156,13 +163,13 @@
 
     map.on('load', function () {
         map.addSource('mapbox-dem', {
-            'type': 'raster-dem',
-            'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
-            'tileSize': 512,
-            'maxzoom': 14
-        });
+    'type': 'raster-dem',
+    'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+    'tileSize': 512,
+    'maxzoom': 14
+});
 
-        map.addLayer({
+map.addLayer({
             'id': 'hillshading',
             'source': 'mapbox-dem',
             'type': 'hillshade'
@@ -207,8 +214,8 @@
         map.addControl(scale);
 
         // Limit max zoom and max bounds for the map
-        // map.setMaxZoom(16);
-        // map.setMinZoom(10);
+        map.setMaxZoom(16);
+        map.setMinZoom(7);
 
         // Add the animated line source and layer
         map.addSource('animated-line', {
@@ -238,6 +245,10 @@
             'visibility': 'none'
         });
     });
+
+    var previousTimestamp = 0;
+    
 </script>
 </body>
 </html>
+
