@@ -21,7 +21,7 @@ function SidebarMap() {
         paddingLeft: '50px',
         float: 'left',
       }}>
-      <Link href="/app" id='returnButton' fontWeight="bold" underline="hover" color="inherit">Voltar</Link>
+      <Link href="/projects" id='returnButton' fontWeight="bold" underline="hover" color="inherit">Voltar</Link>
       <br /><br /> Você está em
       <Typography variant="h4" fontWeight="bold">Operação 1</Typography>
       <br />

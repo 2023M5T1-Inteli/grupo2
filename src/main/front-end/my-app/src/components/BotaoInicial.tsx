@@ -37,7 +37,7 @@ const theme = createTheme({
 function BotaoInicial() {
   return (
     <ThemeProvider theme={theme}>
-      <Link to="/app">
+      <Link to="/projects">
         <Button
           sx={{
             display: 'flex',

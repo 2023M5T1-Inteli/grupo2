@@ -1,18 +1,13 @@
-import TextoInicial from "./components/TextoInicial";
-import BotaoInicial from "./components/BotaoInicial";
 import Cards from "./components/Cards"
 import Texto2 from "./components/Texto2"
-import BotaoPg2 from "./components/BotaoPg2";
 import BarraPesquisa from "./components/BarraPesquisa";
-import { Route, BrowserRouter, Navigate, Routes } from "react-router-dom";
-import Login from "./pages/Login";
-import CriarProjeto from "./pages/CriarProjeto";
+import ModalNewProject from "./components/ModalNewProject";
 
 
 function App() {
   return (
     <>
-      <BotaoPg2 />
+      <ModalNewProject />
       <Cards />
       <Texto2 />
       <BarraPesquisa />

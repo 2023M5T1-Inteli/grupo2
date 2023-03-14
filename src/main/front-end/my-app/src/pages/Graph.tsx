@@ -4,11 +4,11 @@ import VisualizationGraph from "../components/VisualizationGraph";
 
 
 function Graph() {
-    return(
+    return (
         <div>
             <SidebarGraph />
-            <VisualizationGraph/>       
-            <FooterGraph/>
+            <VisualizationGraph />
+            <FooterGraph />
         </div>
     )
 }

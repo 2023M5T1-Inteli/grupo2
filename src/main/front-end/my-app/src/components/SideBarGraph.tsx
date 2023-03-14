@@ -6,7 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InputAdornment from '@mui/material/InputAdornment';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import createPath from './script.js';
+import createPath from "./script";
 
 function SidebarGraph() {
   return (
@@ -22,7 +22,7 @@ function SidebarGraph() {
         paddingLeft: '50px',
         float: 'left',
       }}>
-      <Link href="/app" id='returnButton' fontWeight="bold" underline="hover" color="inherit">Voltar</Link>
+      <Link href="/projects" id='returnButton' fontWeight="bold" underline="hover" color="inherit">Voltar</Link>
       <br /><br /> Você está em
       <Typography variant="h4" fontWeight="bold">Operação 1</Typography>
       <br />
