@@ -97,7 +97,7 @@ function Card2() {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Operação Nautilus 23
+          Operação Brother Sam
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Data: 22/12

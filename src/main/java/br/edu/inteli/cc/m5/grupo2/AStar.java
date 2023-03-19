@@ -3,87 +3,87 @@ package br.edu.inteli.cc.m5.grupo2;
 import java.util.*;
 
 public class AStar {
-    public static double heuristic(Vertex start, Vertex end) {
+    public static double heuristica(Vertex start, Vertex end) {
         double d1 = Math.abs(end.getLatitude() - start.getLatitude());
         double latDistance = d1 * 111319.9;
         double d2 = Math.abs(end.getLongitude() - start.getLongitude());
         double lonDistance = d2 * 111319.9;
+
         return (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(lonDistance, 2)));
     }
 
     public static List<Vertex> findPath(Vertex start, Vertex end) {
-        //Red-black tree as data structure for not visited vertices
+        //Lista de prioridade vazia
         TreeSet<Vertex> notVisited = new TreeSet<>();
 
-        //Priority queue with visited vertices
+        //Lista de prioridade com vértices vizitados
         Set<Vertex> visited = new HashSet<>();
 
-        //Start with the starting point
+        //Inicia com o ponto de partida
         notVisited.add(start);
 
-        //Start with initial cost
-        start.setStartCost(0);
+        //Inicia o custo inicial
+        start.setCustoDoInicio(0);
 
-        //Start with estimated total cost
-        start.setEstimatedTotalCost(0.6 * start.getStartCost() + 0.4 * heuristic(start, end));
+        //Inicia o custo estimado total
+        start.setCustoEstimadoTotal(0.6 * start.getCustoDoInicio() + 0.4 * heuristica(start, end));
 
-        //Condition that checks, step by step, for the cheapest vertex
+        //Condição que verifica, passo a passo qual o vértice mais barato
         while (!notVisited.isEmpty()) {
-            //Get the vertex with lowest cost from the queue
+            //Pega o vértice com menor custo da fila
             Vertex current = notVisited.pollFirst();
 
-            //Check if this vertex is the end
+            //Verifica se esse vértice é o final
             if (current == end) {
                 System.out.println(visited.size());
                 return getPath(current);
             }
 
-            //Add current vertex to visited
+            //Adiciona o vértice atual ao visitados
             visited.add(current);
 
-            //Check current vertex's connections
+            //Verifica as conexões do vértice atual
             for (Edge edge : current.getConnections()) {
 
                 Vertex neighbor = edge.getArrivalVertex();
 
-                //Ignore if the neighbor has already been visited
+                //Ignora se o vizinho já foi vizitado
                 if (visited.contains(neighbor)) continue;
 
-                //Calculate neighbor's cost
-                double tentativeCost = current.getStartCost() + edge.getWeight();
+                //Calcula o custo do vizinho
+                double custoTentativo = current.getCustoDoInicio() + edge.getWeight();
 
-                //If the neighbor hasn't been visited or the cost is lower
-                if (!visited.contains(neighbor) || tentativeCost < neighbor.getStartCost()) {
+                //Se o vizinho não foi visitado ou se o custo for menor
+                if (!visited.contains(neighbor) || custoTentativo < neighbor.getCustoDoInicio()) {
 
-                    //Set the start cost and estimated cost
-                    neighbor.setStartCost(tentativeCost);
-                    neighbor.setEstimatedTotalCost(0.6 * tentativeCost + 0.4 * heuristic(neighbor, end));
+                    //Define o custo do inicio e o   estimado
+                    neighbor.setCustoDoInicio(custoTentativo);
+                    neighbor.setCustoEstimadoTotal(0.6 * custoTentativo + 0.4 * heuristica(neighbor, end));
 
-                    //Set the current vertex as parent node of the neighbor
-                    neighbor.setParent(current);
+                    //Define o vértice atual como nó pai do vizinho
+                    neighbor.setPai(current);
 
-                    //Add neighbor to priority queue
+                    //Adiciona o vizinho na fila de prioridade
                     if (!visited.contains(neighbor)) notVisited.add(neighbor);
                 }
             }
         }
-        //Return null if there is no path
+        //Retorna vazio se não houver caminho
         return null;
     }
 
-    //Condition that creates the path
-    private static List<Vertex> getPath(Vertex vertex) {
-        List<Vertex> path = new ArrayList<>();
+        //Condição que cria o caminho
+    private static List<Vertex> getPath(Vertex vertice){
+        List<Vertex> caminho = new ArrayList<>();
 
-        //Add the current vertex to the path
-        path.add(vertex);
+        //Adicina o vértice atual ao caminho
+        caminho.add(vertice);
 
-        //Add vertex's parents until it reaches the start
-        while (vertex.getParent() != null) {
-            vertex = vertex.getParent();
-            path.add(0, vertex);
+        //Adiciona os pais do vértice até chegar no inicio
+        while (vertice.getPai() != null) {
+            vertice = vertice.getPai();
+            caminho.add(0, vertice);
         }
-        return path;
+        return caminho;
     }
-
 }

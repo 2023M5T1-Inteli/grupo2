@@ -11,7 +11,7 @@ function BarraPesquisa() {
         top: '14%',
         left: '67%',
         transform: 'translate(-50%, -50%)',
-        '& > :not(style)': { m: 0, width: '25ch' },
+        '& > :not(style)': { m: 1, width: '25ch' },
       }}
       noValidate
       autoComplete="off"

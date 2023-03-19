@@ -78,24 +78,28 @@ public class Vertex implements Comparable<Vertex> {
 
         return str.toString();
     }
-    public void setStartCost(double custo) {
+    public void setCustoDoInicio(double custo) {
         this.custoDoInicio = custo;
     }
-    public void setEstimatedTotalCost(double custoEstimadoTotal) {
+    public void setCustoEstimadoTotal(double custoEstimadoTotal) {
         this.custoEstimadoTotal = custoEstimadoTotal;
     }
-    public double getStartCost() {
+    public double getCustoDoInicio() {
         return custoDoInicio;
     }
-    public void setParent(Vertex pai) {
+    public void setPai(Vertex pai) {
         this.pai = pai;
     }
-    public Vertex getParent() {
+    public Vertex getPai() {
         return pai;
     }
-
-    @Override
-    public int compareTo(Vertex o) {
-        return 0;
+    public int compareTo(Vertex other) {
+        return Double.compare(this.getCustoEstimadoTotal(), other.getCustoEstimadoTotal());
     }
+    public double getCustoEstimadoTotal() {
+        return this.custoEstimadoTotal;
+    }
+
+
+
 }

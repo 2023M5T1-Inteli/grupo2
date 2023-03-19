@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Topographic Map</title>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+        #input-container { position: absolute; top: 10px; left: 10px; z-index: 1; background-color: white; padding: 10px; border-radius: 5px; }
+        #submit-markers { margin-top: 10px; }
+        #scale { position: absolute; bottom: 10px; left: 10px; z-index: 1; background-color: white; padding: 5px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div id='input-container'>
+        <p>Enter the coordinates of the markers:</p>
+        <form id='marker-form'>
+            <label for='origin'>Origin:</label>
+            <input type='text' id='origin' name='origin' required />
+            <label for='destiny'>Destiny:</label>
+            <input type='text' id='destiny' name='destiny' required />
+            <br />
+            <button type='submit' id='submit-markers'>Submit</button>
+        </form>
+    </div>
+    <div id='map'></div>
+    <div id='scale'></div>
+    <script>
+        // Your Mapbox access token
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYmVueWludGVsaSIsImEiOiJjbGYwM25oaWMwMjRwM3Vta2tiMjd2eGk3In0.yAOpHb-ul9chFeWMM1KOeg';
+
+        // Static map boundaries
+        var xmin = -44.99954;
+        var ymin = -22.99865;
+        var xmax = -44.00076;
+        var ymax = -21.99988;
+
+                // Initialize the map
+                var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/outdoors-v11',
+            center: [-(xmin + xmax) / 2, (ymin + ymax) / 2],
+            zoom: 8,
+            maxBounds: [[xmin, ymin], [xmax, ymax]]
+        });
+
+        // Add scale control to the map
+        var scale = new mapboxgl.ScaleControl({
+            maxWidth: 100,
+            unit: 'metric'
+        });
+        map.addControl(scale);
+
+        // Add a line layer to display the route between origin and destiny
+        map.on('load', function () {
+            map.addSource('route', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {
+                    'type': 'LineString',
+                    'coordinates': []
+                    }
+                }
+            });
+
+            map.addLayer({
+                'id': 'route',
+                'type': 'line',
+                'source': 'route',
+                'layout': {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                'paint': {
+                    'line-color': '#1db7dd',
+                    'line-width': 4,
+                    'line-dasharray': [0, 1]
+                }
+            });
+        });
+
+        function animateLine(line, originCoords, destinyCoords) {
+    const numPoints = 100;
+    const lineString = turf.lineString([originCoords, destinyCoords]);
+    const length = turf.length(lineString, { units: 'kilometers' });
+    const interval = length / numPoints;
+    let coordinates = [];
+
+    for (let i = 0; i <= numPoints; i++) {
+        const newCoord = turf.along(lineString, i * interval, { units: 'kilometers' }).geometry.coordinates;
+        coordinates.push(newCoord);
+        setTimeout(() => {
+            line.getSource('route').setData({
+                'type': 'Feature',
+                'properties': {},
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': coordinates
+                }
+            });
+        }, i * 50);
+    }
+}
+        document.getElementById('marker-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var origin = document.getElementById('origin').value;
+            var destiny = document.getElementById('destiny').value;
+
+            if (origin && destiny) {
+                // Parse origin and destiny coordinates
+                var originCoords = origin.split(',').map(parseFloat);
+                var destinyCoords = destiny.split(',').map(parseFloat);
+
+                if (originCoords.length === 2 && destinyCoords.length === 2) {
+                    // Add origin marker
+                    new mapboxgl.Marker({ color: 'green' })
+                        .setLngLat(originCoords)
+                        .addTo(map);
+
+                    // Add destiny marker
+                    new mapboxgl.Marker({ color: 'red' })
+                        .setLngLat(destinyCoords)
+                        .addTo(map);
+
+                    // Update the route's coordinates
+                    map.getSource('route').setData({
+                        'type': 'Feature',
+                        'properties': {},
+                        'geometry': {
+                            'type': 'LineString',
+                            'coordinates': [originCoords, destinyCoords]
+                        }
+                    });
+
+                    // Animate the line
+                    animateLine(map, originCoords, destinyCoords);
+
+                    // Direct the user's screen to the line and markers
+                    map.fitBounds([originCoords, destinyCoords], {
+                        padding: 100
+                    });
+
+                } else {
+                    alert('Invalid coordinates format. Please ensure the format is longitude,latitude.');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+

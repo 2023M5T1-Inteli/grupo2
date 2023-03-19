@@ -61,7 +61,6 @@ Planejador de trajetórias para voos em baixa altitude.
   - [Outputs](#outputs)
   - [Localização dos dados no github](#localização-dos-dados-no-github)
   - [Representação visual inicial (Neo4j)](#representação-visual-inicial-neo4j)
-  - [Persistência dos dados](#persistência-dos-dados)
 - [Limitações e modelagem matemática](#limitações-e-modelagem-matemática)
   - [Modelagem matemática](#modelagem-matemática)
     - [Variáveis de decisão](#variáveis-de-decisão)
@@ -69,11 +68,6 @@ Planejador de trajetórias para voos em baixa altitude.
     - [Restrições](#restrições)
     - [Detalhamento das restrições](#detalhamento-das-restrições)
     - [Conclusão](#conclusão-1)
-- [Sistema](#sistema)
-    - [Tecnologias utilizadas](#tecnologias-utilizadas)
-    - [Arquitetura da aplicação](#arquitetura-da-aplicação)
-    - [Estrutura de dados](#estrutura-de-dados)
-    - [Algoritmo escolhido(A\*)](#algoritmo-escolhidoa)
 - [Referências](#referências)
 
 
@@ -417,50 +411,5 @@ Dessa forma, o problema matemático pode ser resolvido por um algoritmo de camin
 <br>
 <br>
 
-# Sistema
-
-Detalhamento de como a nossa solução funciona e quais as tecnologias utilizadas no seu desenvolvimento.
-<br>
-<br>
-
-### Tecnologias utilizadas
-
-![tecnologias](img/TecnologiasProj.png)
-
-<br>
-<br>
-
-### Arquitetura da aplicação
-
-![Arquitetura](img/ArquiteturaProj.png)
-
-<br>
-<br>
-
-### Estrutura de dados
-
-Optamos pela Árvore Rubro Negra, após comparações com a Lista de Prioridades
-![Estrutura](img/EstruturaDeDados2.png)
-
-<br>
-
-Resultado dos testes
-![Estrutura2](img/EsrtruturaDados.png)
-
-<br>
-<br>
-
-### Algoritmo escolhido(A*)
-
-O algoritmo A* é frequentemente preferido em relação ao algoritmo Dijkstra em aplicações que envolvem a busca do caminho mais curto em grafos, devido ao fato de que ele é capaz de encontrar a solução de maneira mais eficiente em termos de tempo de execução.
-
-Enquanto o algoritmo Dijkstra expande todos os nós adjacentes e calcula o custo até cada um deles, o algoritmo A* utiliza uma heurística para estimar a distância restante até o objetivo e prioriza os nós que parecem ser mais promissores em termos de redução do custo total.
-
-Essa heurística pode ser calculada de diferentes maneiras, dependendo da aplicação. No entanto, em geral, ela é escolhida de forma a ser admissível, ou seja, ela não pode superestimar a distância restante. Isso garante que o algoritmo A* encontre sempre a solução mais curta, desde que a heurística seja admissível.
-
-Em resumo, escolhemos o algoritmo A* para nossa aplicação em detrimento do algoritmo Dijkstra porque ele nos permite encontrar o caminho mais curto de forma mais eficiente em termos de tempo de execução.
-
-<br>
 
 # Referências
-
