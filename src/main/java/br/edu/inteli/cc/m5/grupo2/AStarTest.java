@@ -9,10 +9,10 @@ import static org.testng.AssertJUnit.assertEquals;
 
 public class AStarTest {
 
-    /*
-        This tests if the heuristic function is correct, by giving two vertexes
-        to be calculated
-     */
+    
+    //    This tests if the heuristic function is correct, by giving two vertexes
+     //   to be calculated
+    
     @Test
     private void heuristica(){
         Graph graph = new Graph();
@@ -26,9 +26,9 @@ public class AStarTest {
         assertEquals(424.26406871192853, AStar.heuristic(vertex, vertex4));
     }
 
-    /*
-        This tests if the best path, giving our considerations such as altitude and distance, is being calculated
-     */
+   
+    //    This tests if the best path, giving our considerations such as altitude and distance, is being calculated
+     
     @Test(timeOut = 60000)
     private void findCorrectPath(){
         Graph graph = new Graph();
