@@ -47,6 +47,12 @@ Ainda em outro trecho de DASGUPTA et. al. (2011), temos:
 
 # Resultados obtidos
 
+No presente estudo, foram realizados experimentos para avaliar a eficácia do algoritmo proposto de menor caminho baseado em grafos. Os resultados obtidos demonstram a capacidade do algoritmo em solucionar problemas de menor caminho em diferentes cenários e configurações de grafos. Nesta seção, apresentaremos uma análise detalhada dos resultados experimentais, destacando a performance do algoritmo em comparação com outras abordagens existentes, bem como as principais vantagens e limitações identificadas.
+
+Com base nos estudos já referenciados neste artigo, foi constatado que a melhor abordagem para a nossa solução seria o uso do algoritmo AStar, que, por sua natureza, otimiza o tempo de execução e uso de memória. Sendo assim, buscamos maneiras de incrementar a sua performance através do uso de diferentes estruturas de dados para busca e ordenação, como a _PriorityQueue_ e a _TreeSet_. Sabendo disso, todas os testes têm, por competência, a função de comparar essas duas estruturas.
+
+
+
 # Conclusão
 
 # Referências Bibliográficas
