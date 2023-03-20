@@ -6,31 +6,43 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Graph {
-
+// declares a private static final Logger object named "LOGGER", which is used to log messages in the Graph class.
     private static final Logger LOGGER = Logger.getLogger(Graph.class.getName());
+// declares a private final instance variable named "vertices", which is an ArrayList of Vertex objects.
     private final ArrayList<Vertex> vertices;
+//  declares a private instance variable named "nextVertexId", which is an integer that represents the next available ID for a vertex.
     private int nextVertexId = 0;
 
+//  declares private instance variables named "cols" and "rows", which represent the number of columns and rows in a grid of vertices, respectively.
     private int cols, rows;
 
     public Graph() {
+//  initializes the "vertices" instance variable with an empty ArrayList.
         this.vertices = new ArrayList<>();
     }
-
+//  declares a public method named "addVertex", which adds a new Vertex object to the "vertices" ArrayList.
     public void addVertex(double latitude, double longitude, double altitude) {
+//  creates a new Vertex object with the specified latitude, longitude, altitude, and the next available ID, and assigns it to a local variable named "vertex".
         Vertex vertex = new Vertex(nextVertexId++, latitude, longitude, altitude);
+//  adds the new Vertex object to the "vertices" ArrayList.
         this.vertices.add(vertex);
     }
 
     public int getCols(){return this.cols;}
+//  declares a public method named "getCols", which returns the number of columns in the grid.
 
     public int getRows(){return this.rows;}
+//  declares a public method named "getRows", which returns the number of rows in the grid.
 
     // Remove before deploy
     public void addVertex(Vertex vertex){
+//  declares a public method named "addVertex", which adds a new Vertex object to the "vertices" ArrayList.
         for (int i = 0; i < this.getVertices().size(); i++){
+//  begins a for loop that iterates through the "vertices" ArrayList.
             if (vertex.getId() == this.getVertices().get(i).getId()){
+//  checks if the ID of the new Vertex object matches the ID of any existing Vertex objects in the "vertices" ArrayList.
                 LOGGER.log(Level.WARNING, "Vertex with id == " + vertex.getId() + " already exists");
+//  logs a warning message indicating that a Vertex object with the same ID already exists in the "vertices"
                 return;
             }
         }
