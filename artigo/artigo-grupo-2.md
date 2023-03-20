@@ -53,6 +53,8 @@ Com base nos estudos já referenciados neste artigo, foi constatado que a melhor
 
 O ambiente de teste utilizado foi um notebook Acer Aspire 5, com core I5-9300h e 16 Gb de memória RAM a 2400 GHz em dual channel. Isso será relevante para exemplificar o tempo de execução, que foi uma das maneiras usadas para analisar a escolha final do código, contudo, para uma metodologia mais assertiva, usamos também a experimentação baseada em passos de processamento, ou seja, quantas vezes o algoritmo foi chamado para finalizar uma tarefa e isso fica autônomo do ambiente de processamento.
 
+Após essa introdução, podemos inserir o primeiro teste experimental, que visa comparar o tempo de execução. Para isso, selecionamos o ponto inicial do mapa, cujo vértice tem índice 0 (zero) e um ponto final qualquer, que segue uma sequência lógica que será exemplificada logo.
+
 
 
 # Conclusão
