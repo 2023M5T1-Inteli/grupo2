@@ -2,20 +2,25 @@ package br.edu.inteli.cc.m5.grupo2;
 
 public class Edge {
 
-    private final Vertex arrivalVertex;
-    private final int weight;
+// Define two private variables - arrivalVertex and weight
+private final Vertex arrivalVertex;
+private final int weight;
 
-    public Edge(Vertex arrivalVertex, int weight) {
-        this.arrivalVertex = arrivalVertex;
-        this.weight = weight;
-    }
+// Constructor method for the Edge class
+public Edge(Vertex arrivalVertex, int weight) {
+    // Assigns the passed arrivalVertex and weight to the private variables
+    this.arrivalVertex = arrivalVertex;
+    this.weight = weight;
+}
 
-    public Vertex getArrivalVertex() {
-        return this.arrivalVertex;
-    }
+// Getter method for the arrivalVertex variable
+public Vertex getArrivalVertex() {
+    return this.arrivalVertex;
+}
 
-    public int getWeight() {
-        return this.weight;
-    }
+// Getter method for the weight variable
+public int getWeight() {
+    return this.weight;
+}
 
 }
