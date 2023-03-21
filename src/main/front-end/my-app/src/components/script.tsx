@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import GetNodeInfo from "./GetNodeInfo";
 
 interface Node {
   index: number;
@@ -17,33 +18,38 @@ interface Link {
 }
 
 const path: [number, number, number][] = [
-  [1, -22.97, -45.96],
-  [2, -22.97, -45.97],
-  [3, -22.97, -45.98],
-  [4, -22.97, -45.99],
-  [5, -22.97, -46.00],
-  [6, -22.97, -46.01],
+  [832, -22.97, -45.96],
+  [845, -22.97, -45.97],
+  [558, -22.97, -45.98],
+  [422, -22.97, -45.99],
+  [934, -22.97, -46.00],
+  [1100, -22.97, -46.01],
 ];
 
 const nodes: Node[] = [];
 
 const links: Link[] = [];
 
+let graphGenerated = 0;
+
 const createPath = (): void => {
-  for (let i = 0; i < path.length; i++) {
-    const node: Node = {
-      index: i,
-      altitude: path[i][0],
-      latitude: path[i][1],
-      longitude: path[i][2],
-    };
-    nodes.push(node);
-    if (i > 0) {
-      const link: Link = { source: i - 1, target: i };
-      links.push(link);
+  if (graphGenerated == 0){
+    for (let i = 0; i < path.length; i++) {
+      const node: Node = {
+        index: i,
+        altitude: path[i][0],
+        latitude: path[i][1],
+        longitude: path[i][2],
+      };
+      nodes.push(node);
+      if (i > 0) {
+        const link: Link = { source: i - 1, target: i };
+        links.push(link);
+      }
     }
+    generateGraph();
+    graphGenerated ++;
   }
-  generateGraph();
 };
 
 function generateGraph(): void {
@@ -75,7 +81,8 @@ function generateGraph(): void {
     .data(links)
     .enter()
     .append("line")
-    .attr("class", "link");
+    .style("stroke", function(d) { return "#000000"; })
+    .style("stroke-opacity", function(d) { return "1"; });
 
   const node = svg.selectAll(".node")
     .data(nodes)
@@ -83,8 +90,8 @@ function generateGraph(): void {
     .append("g")
     .attr("class", "node")
     .attr("id",function(d: any) {return "node" + (d as any).index})
-    .attr("onmouseover", function(d: any) {return "getNodeInfo(" + (d as any).index + ")"})
-    .attr("onmouseout", function(d: any) {return "hideNodeInfo(" + (d as any).index + ")"});
+    // .attr("onmouseover", function(d: any) {return "GetNodeInfo(" + d.index + "," + d.altitude + "," + d.latitude + "," + d.longitude + ")"});
+    // .attr("onmouseout", function(d: any) {return hideNodeInfo});
     
   node.append("circle")
     .attr("r", 20)
@@ -105,21 +112,6 @@ function generateGraph(): void {
 
     node.attr("transform", function(d: any) { return "translate(" + (d as any).x + "," + (d as any).y + ")"; });
   });
-}
-
-function getNodeInfo(node: number) {
-  document.getElementById("vertexInfo")!.style.display = "block";
-  document.getElementById("vertexId")!.innerHTML = "<b> Vértice " + (node + 1) + "<b>";
-  document.getElementById("vertexAltitude")!.innerHTML = "Altitude: " + nodes[node].altitude;
-  document.getElementById("vertexLatitude")!.innerHTML = "Latitude: " + nodes[node].latitude;
-  document.getElementById("vertexLongitude")!.innerHTML = "Longitude: " + nodes[node].longitude;
-  //document.getElementById("vertexInfo")!.style.left = d3.select("#node" + node).datum().x + "px";
-  //document.getElementById("vertexInfo")!.style.top = d3.select("#node" + node).datum().y + "px";
-  hideNodeInfo();
-}
-
-function hideNodeInfo() {
-  document.getElementById("vertexInfo")!.style.display = "none";
 }
 
 export default createPath;

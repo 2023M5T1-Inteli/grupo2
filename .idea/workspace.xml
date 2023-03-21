@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ea1af99-436f-4525-9473-d871fef53af1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jgrapht_jgrapht_core_1_5_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jheaps_jheaps_0_13.xml" beforeDir="false" />
+    <list default="true" id="3f937ead-83ce-4aeb-b055-aa0d9e01ba5e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/inteli/cc/m5/grupo2/AStar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/inteli/cc/m5/grupo2/AStar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/inteli/cc/m5/grupo2/AStarTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/inteli/cc/m5/grupo2/AStarTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/inteli/cc/m5/grupo2/Vertex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/inteli/cc/m5/grupo2/Vertex.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +67,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\thoma\Desktop\grupo2\src\main\front-end\GraphGenerator" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Elias\Documents\GitHub\grupo2" />
       <recent name="C:\Users\Elias\Documents\GitHub\Turma-4\grupo2\src\main\java\br\edu\inteli\cc\m5\grupo" />
