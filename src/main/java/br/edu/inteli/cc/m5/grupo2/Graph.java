@@ -119,4 +119,38 @@ public class Graph {
             }
         }
     }
+    public Vertex findNearestVertex(double targetLatitude, double targetLongitude) {
+        if (vertices.isEmpty()) {
+            return null;
+        }
+
+        Vertex nearestVertex = vertices.get(0);
+        double minDistance = distance(nearestVertex.getLatitude(), nearestVertex.getLongitude(), targetLatitude, targetLongitude);
+
+        for (Vertex vertex : vertices) {
+            double currentDistance = distance(vertex.getLatitude(), vertex.getLongitude(), targetLatitude, targetLongitude);
+
+            if (currentDistance < minDistance) {
+                nearestVertex = vertex;
+                minDistance = currentDistance;
+            }
+        }
+
+        return nearestVertex;
+    }
+
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+
+        lat1 = Math.toRadians(lat1);
+        lat2 = Math.toRadians(lat2);
+
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = 6371 * c; // Radius of the earth in km
+
+        return distance;
+    }
+
 }

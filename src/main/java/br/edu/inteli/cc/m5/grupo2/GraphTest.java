@@ -9,7 +9,7 @@ import static org.testng.AssertJUnit.assertNotNull;
 
 public class GraphTest {
 
-    String path = "src/main/resources/dted/SaoPaulo/W045_S23.dt2";
+    String path = "src/main/resources/dted/SaoPaulo/W046_S24.dt2";
     double[][] newMap = Dted.readDted(path, 180);
     Graph graph = createGraphForTests();
 
@@ -134,5 +134,21 @@ public class GraphTest {
 
         // Check that each vertex has the correct number of edges
         assertEquals(4, graph.getVertices().get(cols + 2).getAllConnections().size());
+    }
+    @Test
+    public void findNearestVertexTest() {
+        double targetLatitude = -23.80302;
+        double targetLongitude = -45.94516;
+
+
+        long start = System.currentTimeMillis();
+
+        Vertex nearestVertex = graph.findNearestVertex(targetLatitude, targetLongitude);
+
+        long end = System.currentTimeMillis();
+        System.out.println("DEBUG: Took " + (end - start) + " MilliSeconds");
+
+        System.out.println("Latitude: " + nearestVertex.getLatitude() + ", Longitude: " + nearestVertex.getLongitude());
+
     }
 }
