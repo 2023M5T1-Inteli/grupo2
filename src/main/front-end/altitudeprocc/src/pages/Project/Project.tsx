@@ -39,7 +39,7 @@ interface IProject {
 
 const FindingBestRoute = () => {
 
-    const [countdown, setCountdown] = useState(30);
+    const [countdown, setCountdown] = useState(3);
 
     useEffect(() => {
 
@@ -60,7 +60,6 @@ const FindingBestRoute = () => {
         <StyledFindingBestRoute>
             <Loading />
             <Text size="large" weight="semi" color="#18181B" mt="1.6rem">Aguarde enquanto encontramos a melhor rota...</Text>
-            <Text mt="1.6rem">Isso pode levar alguns minutos. Você pode fechar essa página e voltar mais tarde.</Text>
             <Text mt="1.6rem">Recarregando a página em {countdown} segundos...</Text>
         </StyledFindingBestRoute>
     )
