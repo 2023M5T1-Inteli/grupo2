@@ -48,9 +48,25 @@ public class Vertex implements Comparable<Vertex> {
         return this.connections;
     }
 
+    public Vertex getPai() {
+        return pai;
+    }
 
     public int getNumberOfConnections() {
         return this.connections.size();
+    }
+
+    public void setCustoDoInicio(double custo) {
+        this.custoDoInicio = custo;
+    }
+    public void setCustoEstimadoTotal(double custoEstimadoTotal) {
+        this.custoEstimadoTotal = custoEstimadoTotal;
+    }
+    public double getCustoDoInicio() {
+        return custoDoInicio;
+    }
+    public void setPai(Vertex pai) {
+        this.pai = pai;
     }
 
 
@@ -78,28 +94,12 @@ public class Vertex implements Comparable<Vertex> {
 
         return str.toString();
     }
-    public void setCustoDoInicio(double custo) {
-        this.custoDoInicio = custo;
-    }
-    public void setCustoEstimadoTotal(double custoEstimadoTotal) {
-        this.custoEstimadoTotal = custoEstimadoTotal;
-    }
-    public double getCustoDoInicio() {
-        return custoDoInicio;
-    }
-    public void setPai(Vertex pai) {
-        this.pai = pai;
-    }
-    public Vertex getPai() {
-        return pai;
-    }
+
     public int compareTo(Vertex other) {
         return Double.compare(this.getCustoEstimadoTotal(), other.getCustoEstimadoTotal());
     }
+
     public double getCustoEstimadoTotal() {
         return this.custoEstimadoTotal;
     }
-
-
-
 }
