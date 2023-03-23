@@ -36,7 +36,6 @@ public class AStar {
 
             //Verifica se esse vértice é o final
             if (current == end) {
-                System.out.println(visited.size());
                 return getPath(current);
             }
 
@@ -44,6 +43,7 @@ public class AStar {
             visited.add(current);
 
             //Verifica as conexões do vértice atual
+            assert current != null;
             for (Edge edge : current.getConnections()) {
 
                 Vertex neighbor = edge.getArrivalVertex();
@@ -53,6 +53,8 @@ public class AStar {
 
                 //Calcula o custo do vizinho
                 double custoTentativo = current.getCustoDoInicio() + edge.getWeight();
+
+                if(getAngle(current) == 90) custoTentativo += edge.getWeight()/2.0;
 
                 //Se o vizinho não foi visitado ou se o custo for menor
                 if (!visited.contains(neighbor) || custoTentativo < neighbor.getCustoDoInicio()) {
@@ -71,6 +73,30 @@ public class AStar {
         }
         //Retorna vazio se não houver caminho
         return null;
+    }
+
+    public static double getAngle(Vertex current){
+        if (current.getPai() == null || current.getPai().getPai() == null ) return 0;
+
+        Vertex currentFather = current.getPai();
+        Vertex currentGrandFather = currentFather.getPai();
+
+        double[] currentToFatherVector = { currentFather.getLatitude() - current.getLatitude(),
+                currentFather.getLongitude() - current.getLongitude()};
+
+        double[] fatherToGrandFatherVector = { currentGrandFather.getLatitude() - currentFather.getLatitude(),
+                currentGrandFather.getLongitude() - currentFather.getLongitude()};
+
+        double num = (currentToFatherVector[0] * fatherToGrandFatherVector[0] +
+                currentToFatherVector[1] * fatherToGrandFatherVector[1]);
+
+        double den = (Math.sqrt(Math.pow(currentToFatherVector[0], 2)
+                + Math.pow(currentToFatherVector[1], 2)) * (Math.sqrt(Math.pow(fatherToGrandFatherVector[0], 2)
+                + Math.pow(fatherToGrandFatherVector[1], 2))) );
+
+        double cos =  num / den;
+
+        return Math.toDegrees(Math.acos(cos));
     }
 
         //Condição que cria o caminho

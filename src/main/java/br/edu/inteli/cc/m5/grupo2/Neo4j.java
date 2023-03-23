@@ -8,8 +8,6 @@ import org.neo4j.driver.exceptions.Neo4jException;
 import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class Neo4j implements AutoCloseable {
@@ -277,8 +275,6 @@ public class Neo4j implements AutoCloseable {
         graph.addEdge(vertex3.getId(), vertex2.getId());
         graph.addEdge(vertex2.getId(), vertex4.getId());
 
-        neo4j.createVertices(graph);
-        System.out.println("/////////////////////////////////////////////////////////////////");
         neo4j.createVertex(vertex5);
         System.out.println("/////////////////////////////////////////////////////////////////");
         neo4j.findVertex(4);
