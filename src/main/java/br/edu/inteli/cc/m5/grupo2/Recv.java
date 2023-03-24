@@ -9,9 +9,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Recv {
 
-    // Nome da fila a ser consumida
+    // Name of the queue to be consumed
     private String QUEUE_NAME;
-    // URI de conexão com o RabbitMQ
+    // Connection URI to RabbitMQ
     private String URI;
 
     public Recv() {
@@ -19,30 +19,29 @@ public class Recv {
         this.URI = "amqp://guest:guest@localhost:5672";
     }
 
-    // Cria uma conexão com o RabbitMQ utilizando a URI de conexão definida
+    // Creates a connection to RabbitMQ using the defined connection URI
     public Connection createConnection() throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(this.URI);
         return factory.newConnection();
     }
 
-    // Cria um canal de comunicação com o RabbitMQ
+    // Creates a communication channel with RabbitMQ
     public Channel createChannel(Connection connection) throws Exception {
         return connection.createChannel();
     }
 
-    // Declara a fila a ser consumida pelo canal
+    // Declares the queue to be consumed by the channel
     public void declareQueue(Channel channel) throws Exception {
-        // Define os argumentos de declaração da fila
-        boolean durable = true; // Fila persistente
-        boolean exclusive = false; // Fila não exclusiva
-        boolean autoDelete = false; // Fila não é excluída automaticamente
-        // Define as propriedades adicionais da fila
-        // Nesse caso, é passado como argumento apenas o nome da fila
-        // Mas podem ser definidas outras propriedades, como argumentos
-        // de política de fila, por exemplo.
+        // Define the queue declaration arguments
+        boolean durable = true; // Persistent queue
+        boolean exclusive = false; // Non-exclusive queue
+        boolean autoDelete = false; // Queue is not automatically deleted
+        // Defines additional properties of the queue
+        // In this case, only the name of the queue is passed as an argument
+        // But other properties can be defined, such as queue policy arguments, for example.
         AMQP.Queue.DeclareOk declareOk = channel.queueDeclare(QUEUE_NAME, durable, exclusive, autoDelete, null);
-        // Imprime uma mensagem informando que a fila foi declarada com sucesso
+        // Print a message informing that the queue has been declared successfully
         System.out.println(" [*] Waiting for new items in queue to process.");
     }
 
@@ -62,7 +61,7 @@ public class Recv {
             DownloadFileFromS3 downloadFileFromS3 = new DownloadFileFromS3();
             downloadFileFromS3.downloadFileFromS3(objectKey, projectId);
 
-            // Exiba uma mensagem de confirmação
+            // Display a confirmation message
             System.out.println(" [*] File downloaded successfully.");
 
             // Instancing a new graph.

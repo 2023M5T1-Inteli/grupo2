@@ -6,19 +6,19 @@ import com.rabbitmq.client.Connection;
 public class App {
     public static void main(String[] args) throws Exception {
 
-        // Instanciando rabbitmq.
+        // Instantiate RabbitMQ receiver
         Recv recv = new Recv();
 
-        // Cria uma conexão com o RabbitMQ
+        // Create a connection to RabbitMQ
         Connection connection = recv.createConnection();
 
-        // Cria um canal para comunicação com o RabbitMQ
+        // Create a channel for communication with RabbitMQ
         Channel channel = recv.createChannel(connection);
 
-        // Declara a fila a ser consumida
+        // Declare the queue to be consumed
         recv.declareQueue(channel);
 
-        // Inicia o consumo de mensagens da fila
+        // Start consuming messages from the queue
         recv.consumeMessages(channel);
 
     }
