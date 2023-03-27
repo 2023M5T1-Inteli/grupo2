@@ -54,7 +54,7 @@ public class AStar {
                 //Calcula o custo do vizinho
                 double custoTentativo = current.getCustoDoInicio() + edge.getWeight();
 
-                if(getAngle(current) == 90) custoTentativo += edge.getWeight()/2.0;
+                if(getAngle(current) == 90) custoTentativo += edge.getWeight()/4.0;
 
                 //Se o vizinho não foi visitado ou se o custo for menor
                 if (!visited.contains(neighbor) || custoTentativo < neighbor.getCustoDoInicio()) {

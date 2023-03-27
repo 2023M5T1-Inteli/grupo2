@@ -6,7 +6,7 @@ public class Vertex implements Comparable<Vertex> {
 
     private final int id;
     private final double latitude;
-    private final double longitude;
+    private double longitude;
     private final double altitude;
     private final LinkedList<Edge> connections;
     private double custoDoInicio = Double.POSITIVE_INFINITY;
@@ -54,6 +54,11 @@ public class Vertex implements Comparable<Vertex> {
 
     public int getNumberOfConnections() {
         return this.connections.size();
+    }
+
+    public double setLongitude(double longitude){
+        this.longitude = longitude;
+        return longitude;
     }
 
     public void setCustoDoInicio(double custo) {
