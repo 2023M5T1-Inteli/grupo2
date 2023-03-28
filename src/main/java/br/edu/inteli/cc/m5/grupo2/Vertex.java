@@ -11,6 +11,7 @@ public class Vertex implements Comparable<Vertex> {
     private final double altitude;
     private final LinkedList<Edge> connections;
     private double custoDoInicio = Double.POSITIVE_INFINITY; // start cost is infinite
+    private int weightDangerArea;
     private double custoEstimadoTotal; // estimated total cost
     private Vertex pai; // parent node
 
@@ -70,6 +71,14 @@ public class Vertex implements Comparable<Vertex> {
     }
 
     /*
+     * Set the danger area weight, for make the algorithm doesn't take this node
+     * @param int weightDangerArea
+     */
+    public void setDangerAreaWeight(int weightChosen) {
+        weightChosen = this.weightDangerArea;
+    }
+
+    /*
      * Return a string that represents the adjacency list of the vertex in a specific format.
      * @return   String   "0: 1 | 2 | 3 | ... | n"
      */
@@ -108,7 +117,4 @@ public class Vertex implements Comparable<Vertex> {
     public double getCustoEstimadoTotal() {
         return this.custoEstimadoTotal;
     }
-
-
-
 }

@@ -3,3 +3,9 @@
 @npm i react-router-dom
 @npm install @mui/material @emotion/react @emotion/styled
 @npm start
+
+Rodar back-end (java):
+
+@C:\GitHub\Módulo 5\grupo2\src\main\java\br\edu\inteli\cc\m5\grupo2
+@ npm install i
+@npm run dev
