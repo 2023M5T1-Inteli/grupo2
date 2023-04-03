@@ -27,7 +27,7 @@ public class AStar {
         start.setCustoDoInicio(0);
 
         //Inicia o custo estimado total
-        start.setCustoEstimadoTotal(0.6 * start.getCustoDoInicio() + 0.4 * heuristica(start, end));
+        start.setCustoEstimadoTotal(start.getCustoDoInicio() + heuristica(start, end));
 
         //Condição que verifica, passo a passo qual o vértice mais barato
         while (!notVisited.isEmpty()) {
@@ -52,14 +52,14 @@ public class AStar {
                 if (visited.contains(neighbor)) continue;
 
                 //Calcula o custo do vizinho
-                double custoTentativo = current.getCustoDoInicio() + edge.getWeight();
+                double custoTentativo = current.getCustoDoInicio() + edge.getWeight() + ((neighbor.getLatitude() - current.getLongitude()) + neighbor.getLongitude() - current.getLongitude());
 
                 //Se o vizinho não foi visitado ou se o custo for menor
                 if (!visited.contains(neighbor) || custoTentativo < neighbor.getCustoDoInicio()) {
 
                     //Define o custo do inicio e o   estimado
                     neighbor.setCustoDoInicio(custoTentativo);
-                    neighbor.setCustoEstimadoTotal(0.6 * custoTentativo + 0.4 * heuristica(neighbor, end));
+                    neighbor.setCustoEstimadoTotal(custoTentativo + heuristica(neighbor, end));
 
                     //Define o vértice atual como nó pai do vizinho
                     neighbor.setPai(current);
