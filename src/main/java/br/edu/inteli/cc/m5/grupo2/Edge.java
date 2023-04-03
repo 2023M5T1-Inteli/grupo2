@@ -4,7 +4,7 @@ public class Edge {
 
 // Define two private variables - arrivalVertex and weight
 private final Vertex arrivalVertex;
-private final int weight;
+private int weight;
 
 // Constructor method for the Edge class
 public Edge(Vertex arrivalVertex, int weight) {
@@ -21,6 +21,9 @@ public Vertex getArrivalVertex() {
 // Getter method for the weight variable
 public int getWeight() {
     return this.weight;
+}
+public void increaseWeight() {
+        this.weight *= 10000;
 }
 
 }
