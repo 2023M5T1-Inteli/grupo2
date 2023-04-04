@@ -39,7 +39,7 @@ interface IProject {
 
 const FindingBestRoute = () => {
 
-    const [countdown, setCountdown] = useState(30);
+    const [countdown, setCountdown] = useState(3);
 
     useEffect(() => {
 
@@ -60,7 +60,6 @@ const FindingBestRoute = () => {
         <StyledFindingBestRoute>
             <Loading />
             <Text size="large" weight="semi" color="#18181B" mt="1.6rem">Aguarde enquanto encontramos a melhor rota...</Text>
-            <Text mt="1.6rem">Isso pode levar alguns minutos. Você pode fechar essa página e voltar mais tarde.</Text>
             <Text mt="1.6rem">Recarregando a página em {countdown} segundos...</Text>
         </StyledFindingBestRoute>
     )
@@ -85,13 +84,10 @@ const PageDescription = ({ projectName }: { projectName: string }) => {
     )
 }
 
-const ProjectSidebar = ({ project, setProject }: { project: IProject, setProject : any }) => {
+const ProjectSidebar = ({ project, setProject, originLatitude, setOriginLatitude, originLongitude, setOriginLongitude, destinationLatitude, setDestinationLatitude, destinationLongitude, setDestinationLongitude }: { project: IProject, setProject: any, originLatitude: string, setOriginLatitude: any, originLongitude: string, setOriginLongitude: any, destinationLatitude: string, setDestinationLatitude: any, destinationLongitude: string, setDestinationLongitude: any }) => {
 
     const [disabled, setDisabled] = useState(true);
-    const [originLatitude, setOriginLatitude] = useState("");
-    const [originLongitude, setOriginLongitude] = useState("");
-    const [destinationLatitude, setDestinationLatitude] = useState("");
-    const [destinationLongitude, setDestinationLongitude] = useState("");
+    
     const [buttonText, setButtonText] = useState("Encontrar melhor rota");
 
     useEffect(() => {
@@ -179,7 +175,7 @@ const ProjectSidebar = ({ project, setProject }: { project: IProject, setProject
     )
 }
 
-const MapZone = ({ project }: { project: IProject }) => {
+const MapZone = ({ project, originLatitude, originLongitude, destinationLatitude, destinationLongitude }: { project: IProject, originLatitude: string, originLongitude: string, destinationLatitude: string, destinationLongitude: string }) => {
 
     if (!project.map) {
         return <></>
@@ -207,6 +203,33 @@ const MapZone = ({ project }: { project: IProject }) => {
     ];
 
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mapbox/outdoors-v11');
+
+    useEffect(() => {
+
+        if(project.status != "routing" && project.status != "routed") {
+            let changedA = false;
+            let changedB = false;
+
+            if (!map.current) return;
+
+            if (originLatitude && originLongitude) {
+                setCircleA([parseFloat(originLongitude), parseFloat(originLatitude)]);
+                changedA=true;
+            }
+
+            if (destinationLatitude && destinationLongitude) {
+                setCircleB([parseFloat(destinationLongitude), parseFloat(destinationLatitude)]);
+                changedB=true;
+            }
+
+            addCircles();
+            changedA && addCircleALabel();
+            changedB && addCircleBLabel();
+        }
+        
+
+    }, [originLatitude, originLongitude, destinationLatitude, destinationLongitude]);
+    
 
     useEffect(() => {
         if (map.current) return;
@@ -361,6 +384,17 @@ const MapZone = ({ project }: { project: IProject }) => {
     
 
     function addCircles() {
+
+        if (map.current.getLayer("circleA")) {
+            map.current.removeLayer("circleA");
+            map.current.removeSource("circleA");
+        }
+    
+        if (map.current.getLayer("circleB")) {
+            map.current.removeLayer("circleB");
+            map.current.removeSource("circleB");
+        }
+
         map.current.addSource("circleA", {
             type: "geojson",
             data: {
@@ -450,6 +484,12 @@ const MapZone = ({ project }: { project: IProject }) => {
     }
     
     function addCircleALabel() {
+
+        if (map.current.getLayer("circleALabel")) {
+            map.current.removeLayer("circleALabel");
+            map.current.removeSource("circleALabel");
+        }
+
         map.current.addSource("circleALabel", {
             type: "geojson",
             data: {
@@ -487,6 +527,12 @@ const MapZone = ({ project }: { project: IProject }) => {
     }
     
     function addCircleBLabel() {
+
+        if (map.current.getLayer("circleBLabel")) {
+            map.current.removeLayer("circleBLabel");
+            map.current.removeSource("circleBLabel");
+        }
+
         map.current.addSource("circleBLabel", {
             type: "geojson",
             data: {
@@ -541,10 +587,10 @@ const Controls = () => {
     )
 }
 
-const ProjectContent = ({ project }: { project: IProject }) => {
+const ProjectContent = ({ project, originLatitude, originLongitude, destinationLatitude, destinationLongitude } : { project: IProject, originLatitude: string, originLongitude: string, destinationLatitude: string, destinationLongitude: string }) => {
     return (
         <StyledProjectContent id="project-content">
-            <MapZone project={project} />
+            <MapZone project={project} originLatitude={originLatitude} originLongitude={originLongitude} destinationLatitude={destinationLatitude} destinationLongitude={destinationLongitude} />
             <Controls />
         </StyledProjectContent>
     )
@@ -555,6 +601,11 @@ export const Project = () => {
     const { projectId } = useParams();
 
     const [project, setProject] = useState<IProject>({ id: "", name: "", dt2file: "", createdAt: "", status: "processing" });
+
+    const [originLatitude, setOriginLatitude] = useState("");
+    const [originLongitude, setOriginLongitude] = useState("");
+    const [destinationLatitude, setDestinationLatitude] = useState("");
+    const [destinationLongitude, setDestinationLongitude] = useState("");
 
     const loadProject = async () => {
 
@@ -579,8 +630,8 @@ export const Project = () => {
         <StyledProject>
             { project.status === "routing" ? <FindingBestRoute /> : (
                 <>
-                    <ProjectSidebar project={project} setProject={setProject}/>
-                    <ProjectContent project={project} />
+                    <ProjectSidebar project={project} setProject={setProject} originLatitude={originLatitude} setOriginLatitude={setOriginLatitude} originLongitude={originLongitude} setOriginLongitude={setOriginLongitude} destinationLatitude={destinationLatitude} setDestinationLatitude={setDestinationLatitude} destinationLongitude={destinationLongitude} setDestinationLongitude={setDestinationLongitude} />
+                    <ProjectContent project={project} originLatitude={originLatitude} originLongitude={originLongitude} destinationLatitude={destinationLatitude} destinationLongitude={destinationLongitude} />
                 </>
             )}
         </StyledProject>
