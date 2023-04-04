@@ -12,36 +12,36 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 public class Recv {
-    private static final String URI = "amqp://guest:guest@localhost:5672";//URI for RabbitMQ server
+    private static final String URI = "amqp://guest:guest@localhost:5672";
 
     public void startConsuming() {
 
-        java.util.logging.Logger.getLogger("com.rabbitmq.client").setLevel(java.util.logging.Level.WARNING);//Sets logging level for RabbitMQ
-        //try-with-resources block to create connection and channel, and to declare queues
+        java.util.logging.Logger.getLogger("com.rabbitmq.client").setLevel(java.util.logging.Level.WARNING);
+
         try (Connection connection = createConnection();
 
-         Channel channel = createChannel(connection)) {
-                declareQueue(channel, "findroute");
-                declareQueue(channel, "process");
+             Channel channel = createChannel(connection)) {
+            declareQueue(channel, "findroute");
+            declareQueue(channel, "process");
 
-            Gson gson = new Gson();//Creates Gson object for deserializing JSON messages
+            Gson gson = new Gson();
 
             while (true) {
-                 //Receives messages from "findroute" queue
+
                 GetResponse response = channel.basicGet("findroute", true);
 
                 if (response != null) {
 
-                    String message = new String(response.getBody(), "UTF-8");//Converts message body to string
-                    JsonObject json = gson.fromJson(message, JsonObject.class);//Deserializes JSON message into JsonObject
-                    String projectId = json.get("id").getAsString();//Gets project ID from JSON
-                    JsonObject origin = json.getAsJsonObject("origin");//Gets origin coordinates from JSON
-                    JsonObject destination = json.getAsJsonObject("destination");//Gets destination coordinates from JSON
-                    double originLatitude = origin.get("latitude").getAsDouble();//Gets latitude of origin
-                    double originLongitude = origin.get("longitude").getAsDouble();//Gets longitude of origin
-                    double destinationLatitude = destination.get("latitude").getAsDouble();//Gets latitude of destination
-                    double destinationLongitude = destination.get("longitude").getAsDouble(); //Gets longitude of destination
-                    //Prints received message and coordinates to console
+                    String message = new String(response.getBody(), "UTF-8");
+                    JsonObject json = gson.fromJson(message, JsonObject.class);
+                    String projectId = json.get("id").getAsString();
+                    JsonObject origin = json.getAsJsonObject("origin");
+                    JsonObject destination = json.getAsJsonObject("destination");
+                    double originLatitude = origin.get("latitude").getAsDouble();
+                    double originLongitude = origin.get("longitude").getAsDouble();
+                    double destinationLatitude = destination.get("latitude").getAsDouble();
+                    double destinationLongitude = destination.get("longitude").getAsDouble();
+
                     System.out.println("\n===============================================================================================\n");
                     System.out.println(" Received new find route request from project '" + projectId + "'.\n");
                     System.out.println(" Origin -----------------------------------------------------------------");
@@ -51,25 +51,26 @@ public class Recv {
                     System.out.println("     Latitude: " + destinationLatitude);
                     System.out.println("     Longitude: " + destinationLongitude);
 
-                    Graph graph = createGraph(projectId);//Creates graph instance for project
+                    Graph graph = createGraph(projectId);
+                    Vertex originVertex = graph.findNearestVertex(originLatitude, originLongitude);
+                    Vertex destinationVertex = graph.findNearestVertex(destinationLatitude, destinationLongitude);
+                    List<Vertex> route = AStar.findPath(originVertex, destinationVertex);
 
-                    Vertex originVertex = graph.findNearestVertex(originLatitude, originLongitude);//Finds nearest vertex to origin coordinates
-                    Vertex destinationVertex = graph.findNearestVertex(destinationLatitude, destinationLongitude);//Finds nearest vertex to destination coordinates
+                    Neo4j neo4j = new Neo4j();
+                    neo4j.persistRoute(route, projectId);
 
-                    List<Vertex> route = AStar.findPath(originVertex, destinationVertex);//Finds path using A* algorithm
-                    //Prints route to console
-                    System.out.println("\n Route found for project '" + projectId + "'.");
+                    System.out.println("\n Route found and persisted for project '" + projectId + "'.");
                     System.out.println("\n===============================================================================================\n");
 
                 }
-                  //Receives messages from "process" queue
+
                 response = channel.basicGet("process", true);
 
                 if (response != null) {
 
-                    String message = new String(response.getBody(), "UTF-8");//Converts message body to string
-                    JsonObject json = gson.fromJson(message, JsonObject.class);//Deserializes JSON message into JsonObject
-                    String projectId = json.get("id").getAsString();//Gets project ID from JSON
+                    String message = new String(response.getBody(), "UTF-8");
+                    JsonObject json = gson.fromJson(message, JsonObject.class);
+                    String projectId = json.get("id").getAsString();
                     System.out.println("\n===============================================================================================\n");
                     System.out.println(" Received new processing request for project '" + projectId + "'.\n");
                     System.out.println(" Downloading file from S3...");

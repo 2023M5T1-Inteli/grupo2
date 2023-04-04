@@ -2,15 +2,17 @@ package br.edu.inteli.cc.m5.grupo2;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
+import com.google.gson.Gson;
 import org.neo4j.driver.Record;
 import org.neo4j.driver.*;
 import org.neo4j.driver.exceptions.Neo4jException;
 import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-// Class to send and request data from Neo4J
 public class Neo4j implements AutoCloseable {
     private final Driver driver;
 
@@ -30,6 +32,51 @@ public class Neo4j implements AutoCloseable {
                 AuthTokens.basic(user, password),
                 Config.defaultConfig());
 
+    }
+
+    public void persistRoute(List<Vertex> route, String projectId) throws FileNotFoundException {
+
+        Gson gson = new Gson();
+
+        List<Map<String, Object>> vertexMaps = route.stream()
+                .map(Vertex::toMap)
+                .collect(Collectors.toList());
+
+        String vertices = gson.toJson(vertexMaps);
+
+        Query query = new Query(
+                """
+                        MATCH (p:Project)
+                        WHERE p.id = $id
+                        
+                        MERGE (p)-[:HAS]->(r:Route {vertices: $vertices});
+                        """,
+                Map.of(
+                        "id", projectId,
+                        "vertices", vertices));
+
+        Query query2 = new Query(
+                """
+                        MATCH (p:Project)
+                        WHERE p.id = $id
+                            SET p.status = "routed"
+                        """,
+                Map.of(
+                        "id", projectId));
+
+        try {
+
+            Session session = driver.session(SessionConfig.forDatabase("neo4j"));
+
+            session.executeWrite(tx -> tx.run(query));
+
+            session.executeWrite(tx -> tx.run(query2));
+
+        } catch (Neo4jException exception) {
+
+            throw exception;
+
+        }
     }
 
     public void persistMapBounds(Graph graph, int rows, String projectId) throws FileNotFoundException {
@@ -56,7 +103,7 @@ public class Neo4j implements AutoCloseable {
         try {
 
             Session session = driver.session(SessionConfig.forDatabase("neo4j"));
-            
+
             session.executeWrite(tx -> tx.run(query));
 
         } catch (Neo4jException exception) {

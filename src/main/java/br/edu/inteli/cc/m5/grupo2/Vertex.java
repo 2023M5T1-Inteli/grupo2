@@ -1,6 +1,8 @@
 package br.edu.inteli.cc.m5.grupo2;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class Vertex implements Comparable<Vertex> {
 
@@ -109,6 +111,13 @@ public class Vertex implements Comparable<Vertex> {
         return this.custoEstimadoTotal;
     }
 
-
+    public Map<String, Object> toMap() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("id", id);
+        result.put("latitude", latitude);
+        result.put("longitude", longitude);
+        result.put("altitude", altitude);
+        return result;
+    }
 
 }
