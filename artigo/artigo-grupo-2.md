@@ -12,7 +12,7 @@ author:
     - "Thomas Barton"
     - "Vinícius Souza" 
 date: Janeiro de 2023
-abstract:Neste estudo, apresentamos um algoritmo de planejamento de trajetórias de aeronaves, em baixa altitude. A abordagem é baseada em grafos, utilizando o algoritmo AStar em conjunto com a estrutura de dados TreeSet, permitindo otimizar a rota da aeronave para se manter em baixa altitude e evitar a detecção por radares inimigos.                                                                                                                      A solução proposta demonstrou ser eficiente e robusta, exibindo tempos de execução significativamente menores e um desempenho superior em comparação a outras abordagens, como a PriorityQueue. Esta pesquisa aprimora o voo em condições restritivas e contribui para o avanço das tecnologias de planejamento de trajetórias em ambientes incertos.
+abstract: Neste estudo, apresentamos um algoritmo de planejamento de trajetórias de aeronaves, em baixa altitude. A abordagem é baseada em grafos, utilizando o algoritmo AStar em conjunto com a estrutura de dados TreeSet, permitindo otimizar a rota da aeronave para se manter em baixa altitude e evitar a detecção por radares inimigos. A solução proposta demonstrou ser eficiente e robusta, exibindo tempos de execução significativamente menores e um desempenho superior em comparação a outras abordagens, como a PriorityQueue. Esta pesquisa aprimora o voo em condições restritivas e contribui para o avanço das tecnologias de planejamento de trajetórias em ambientes incertos.
 ---
 
 # Introdução
