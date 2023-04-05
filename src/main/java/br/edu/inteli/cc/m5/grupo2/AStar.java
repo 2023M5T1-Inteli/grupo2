@@ -86,33 +86,5 @@ public class AStar {
         }
         return caminho;
     }
-    public static List<Vertex> chaikinSmoothing(List<Vertex> path, int iterations) {
-        for (int k = 0; k < iterations; k++) {
-            List<Vertex> smoothedPath = new ArrayList<>();
-
-            for (int i = 0; i < path.size() - 1; i++) {
-                Vertex v1 = path.get(i);
-                Vertex v2 = path.get(i + 1);
-
-                double lat1 = v1.getLatitude() * 0.75 + v2.getLatitude() * 0.25;
-                double lon1 = v1.getLongitude() * 0.75 + v2.getLongitude() * 0.25;
-                double alt1 = v1.getAltitude() * 0.75 + v2.getAltitude() * 0.25;
-
-                double lat2 = v1.getLatitude() * 0.25 + v2.getLatitude() * 0.75;
-                double lon2 = v1.getLongitude() * 0.25 + v2.getLongitude() * 0.75;
-                double alt2 = v1.getAltitude() * 0.25 + v2.getAltitude() * 0.75;
-
-                smoothedPath.add(v1);
-                smoothedPath.add(new Vertex(-1, lat1, lon1, alt1));
-                smoothedPath.add(new Vertex(-1, lat2, lon2, alt2));
-            }
-
-            smoothedPath.add(path.get(path.size() - 1));
-            path = smoothedPath;
-        }
-
-        return path;
-    }
-
 
 }
