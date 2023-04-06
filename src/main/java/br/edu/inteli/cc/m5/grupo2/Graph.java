@@ -160,7 +160,7 @@ public class Graph {
         return nearestVertex;
     }
 
-    private double distance(double lat1, double lon1, double lat2, double lon2) {
+    double distance(double lat1, double lon1, double lat2, double lon2) {
         double dLat = Math.toRadians(lat2 - lat1);
         double dLon = Math.toRadians(lon2 - lon1);
 
@@ -169,9 +169,17 @@ public class Graph {
 
         double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distance = 6371 * c; // Radius of the earth in km
 
-        return distance;
+        return 6371 * c;
+    }
+    public void increaseWeight(double latitude, double longitude, double radius) {
+        for (Vertex vertex : this.vertices) {
+            if (distance(vertex.getLatitude(), vertex.getLongitude(), latitude, longitude) <= radius) {
+                for (Edge edge : vertex.getAllConnections()) {
+                    edge.increaseWeight();
+                }
+            }
+        }
     }
     public void increaseWeight(double latitude, double longitude, double radius) {
         for (Vertex vertex : this.vertices) {

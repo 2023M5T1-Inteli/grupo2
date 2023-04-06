@@ -12,7 +12,7 @@ author:
     - "Thomas Barton"
     - "Vinícius Souza" 
 date: Janeiro de 2023
-abstract: Como parte das atividades do módulo 5, cada grupo deverá redigir um texto  descrevendo os resultados do projeto no formato de um artigo científico. Este arquivo no formato markdown contém a estrutura básica deste artigo. Cada grupo deverá editar este arquivo com a descrição do projeto que desenvolveu.
+abstract: Neste estudo, apresentamos um algoritmo de planejamento de trajetórias de aeronaves, em baixa altitude. A abordagem é baseada em grafos, utilizando o algoritmo AStar em conjunto com a estrutura de dados TreeSet, permitindo otimizar a rota da aeronave para se manter em baixa altitude e evitar a detecção por radares inimigos. A solução proposta demonstrou ser eficiente e robusta, exibindo tempos de execução significativamente menores e um desempenho superior em comparação a outras abordagens, como a PriorityQueue. Esta pesquisa aprimora o voo em condições restritivas e contribui para o avanço das tecnologias de planejamento de trajetórias em ambientes incertos.
 ---
 
 # Introdução
@@ -105,15 +105,15 @@ Hipótese: Suponha que a afirmação seja verdadeira para todos os nós até o n
 
 <p>Após essa introdução, podemos inserir o primeiro teste experimental, que visa comparar o tempo de execução. Para isso, selecionamos o ponto inicial do mapa, cujo vértice tem índice 0 (zero) e um ponto final qualquer, que segue uma sequência lógica que será exemplificada logo.</p>
 
-![Temp execução Priority](https://github.com/2023M5T1-Inteli/grupo2/blob/master/docs/img/execPriority.jpg)
+![Temp execução Priority](https://raw.githubusercontent.com/2023M5T1-Inteli/grupo2/sprint4/docs/img/execPriority.jpg)
 
-![Temp execução Tree](https://github.com/2023M5T1-Inteli/grupo2/blob/master/docs/img/execTree.jpg)
+![Temp execução Tree](https://raw.githubusercontent.com/2023M5T1-Inteli/grupo2/sprint4/docs/img/execTree.jpg)
 
 <p>Nesses dois gráficos, é possível observar que as linhas de tendências têm características distintas. Na PrioriryQueue o crescimento do tempo é exponencial de complexidade O(e^n), sendo n a quantidade de dados de entrada e os resultados vão até a distância de 4,4 Km,  pois esse foi o limite em que enocntramos dado nosso ambiente de trabalho, após isso o sistema acusou um erro de quantidade de memória. Enquanto que na TreeSet nós vemos um crescimento linear de complexidade O(n). Dada essas duas informações, é importante resaaltar a magnitude dos dados coletados, o pior caso da primeira estrutura levou 123,3 segundos para ser processado enquanto que a segunda levou apenas 0,006 segundos.</p>
 
 <p>Com base nesse experimento, podemos concluir que a melhor opção de escolha é a TreeSet, por dois motivos, o primeiro é que ela foi a única que conseguiu processar todos os dados que precisamos trabalhar. A segunda é que para 518.400 pontos, que significam X distância, foi necessário apenas 1,045 segundos, que está dentro das restrições impostas pelo parceiro (O caminho ser gerado em até 1 minuto).</p>
 
-![Temp execução Tree](https://github.com/2023M5T1-Inteli/grupo2/blob/master/docs/img/execTree518400.jpg)
+![Temp execução Tree](https://raw.githubusercontent.com/2023M5T1-Inteli/grupo2/sprint4/docs/img/execTree518400.jpg)
 
 <p>Por fim, é válido, também, verificar a quantidade de passos do algoritmo. Essa é uma verificação interessante, pois, não fica limitada ao ambiente de trabalho usado neste experimento e sua análise será feita logo após o experimento abaixo.</p>
 
