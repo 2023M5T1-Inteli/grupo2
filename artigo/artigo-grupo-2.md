@@ -68,6 +68,8 @@ abstract: Neste estudo, apresentamos um algoritmo de planejamento de trajetória
 <h4>&#x2022; n é qualquer nó do grafo</h4>
 <br><br>
 
+<p>Para a heurística (h), utilizamos a fórmula de Harvesine, isto é, a distância em linha reta entre o nó atual (n) e o nó de destino (t). Esta escolha provou-se a mais adequada, visto que é uma heurística já provada que funciona, e para nossa solução, não apenas funciona, como demonstrou ótimos resultados em testes, afinal, também utilizamos a distância entre o nó atual (n) e o próximo nó (n+1) para calcular o peso real (g), ou seja, a heurística nunca superestimará o custo real , então, ela passa a ser admissível e consistente.</p>
+
 <p>A seguir, apresentaremos uma prova formal da corretude do algoritmo A*.</p>
 
 <p><b>Teorema:</b> O algoritmo A* encontra sempre o menor caminho entre o nó inicial e o nó objetivo em um grafo com arestas de peso não negativo, desde que a heurística utilizada seja admissível. Para que a heurística seja admissível, ela não pode superestimar em nenhum momento o custo real do nó inicial ao nó objetivo, e como, na heurística, utilizamos um valor que também é utilizado calcular o custo real, a heurística é admissível.</p>
@@ -75,8 +77,9 @@ abstract: Neste estudo, apresentamos um algoritmo de planejamento de trajetória
 <p><b>Prova:</b>
 Vamos provar este teorema por indução. Suponha que o nó objetivo t foi adicionado à lista de nós abertos e que o algoritmo A* escolheu um caminho p* para chegar até ele. Isto é, p* é o caminho mínimo que conecta s a t, de acordo com a função de avaliação f(n) = g(n) + h(n).</p>
 
-<p><b>Base:</b> Quando o algoritmo A* escolhe o nó inicial s, a afirmação é trivialmente verdadeira, pois s é o único nó aberto naquele momento.
-Hipótese: Suponha que a afirmação seja verdadeira para todos os nós até o nó k, ou seja, o algoritmo A* encontrou o caminho mínimo para cada nó na lista de nós abertos até o nó k.</p>
+<p><b>Base:</b> Quando o algoritmo A* escolhe o nó inicial s, a afirmação é trivialmente verdadeira, pois s é o único nó aberto naquele momento.</p>
+
+<p><b>Hipótese:</b> Suponha que a afirmação seja verdadeira para todos os nós até o nó k, ou seja, o algoritmo A* encontrou o caminho mínimo para cada nó na lista de nós abertos até o nó k.</p>
 
 <p><b>Passo de indução:</b> Vamos provar que a afirmação é verdadeira para o nó k+1. Seja p* o caminho mínimo que conecta s a t, de acordo com a função de avaliação f(n) = g(n) + h(n). O nó k+1 é adicionado à lista de nós abertos e o algoritmo A* escolhe o caminho mínimo p que conecta s a k+1.</p>
 
