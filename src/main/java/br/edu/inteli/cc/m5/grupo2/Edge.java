@@ -23,7 +23,6 @@ public int getWeight() {
     return this.weight;
 }
 public void increaseWeight() {
-        this.weight *= 10000;
+    this.weight *= 10000;
 }
-
 }

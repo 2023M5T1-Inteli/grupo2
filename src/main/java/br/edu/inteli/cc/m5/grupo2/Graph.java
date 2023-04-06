@@ -181,4 +181,13 @@ public class Graph {
             }
         }
     }
+    public void increaseWeight(double latitude, double longitude, double radius) {
+        for (Vertex vertex : this.vertices) {
+            if (distance(vertex.getLatitude(), vertex.getLongitude(), latitude, longitude) <= radius) {
+                for (Edge edge : vertex.getAllConnections()) {
+                    edge.increaseWeight();
+                }
+            }
+        }
+    }
 }

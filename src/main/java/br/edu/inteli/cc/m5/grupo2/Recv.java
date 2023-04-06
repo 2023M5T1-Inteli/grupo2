@@ -54,7 +54,7 @@ public class Recv {
                     Graph graph = createGraph(projectId);
                     Vertex originVertex = graph.findNearestVertex(originLatitude, originLongitude);
                     Vertex destinationVertex = graph.findNearestVertex(destinationLatitude, destinationLongitude);
-                    List<Vertex> route = AStar.findPath(originVertex, destinationVertex);
+                    List<Vertex> route = Curve.findPathAndUpdateWeight(originVertex, destinationVertex);
 
                     Neo4j neo4j = new Neo4j();
                     neo4j.persistRoute(route, projectId);

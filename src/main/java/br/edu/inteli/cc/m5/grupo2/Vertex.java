@@ -1,8 +1,6 @@
 package br.edu.inteli.cc.m5.grupo2;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 public class Vertex implements Comparable<Vertex> {
 
@@ -119,5 +117,4 @@ public class Vertex implements Comparable<Vertex> {
         result.put("altitude", altitude);
         return result;
     }
-
 }
