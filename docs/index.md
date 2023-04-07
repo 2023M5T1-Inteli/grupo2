@@ -267,16 +267,16 @@ Para compreender o projeto com mais profundidade, criamos as personas. As person
 
 |Número | Descrição | Complexidade | Prioridade | Status
 |--|--|--|--|--|
-| 1 | Como piloto militar, quero ter acesso a mapas atualizados com os trajetos mais eficientes para poder navegar com precisão em missões. |Baixa|Alta|Pendente|
-| 2 | Como piloto militar, quero ter acesso a informações sobre o terreno e as condições adversas para tomar decisões de voo e certificar que a missão será um sucesso . |Baixa|Grande|Pendente|
-| 3 | Como piloto militar, quero ter uma trajetória que minimize a minha visibilidade, para inimigos não me identificarem facilmente. |Baixo|Alta|Pendente|
-| 4 | Como piloto militar , quero poder me comunicar com colegas e comandante em caso de emergências durante minhas missões. |Média|Baixa|Pendente|
+| 1 | Como piloto militar, quero ter acesso a mapas atualizados com os trajetos mais eficientes para poder navegar com precisão em missões. |Baixa|Alta|Concluído|
+| 2 | Como piloto militar, quero ter acesso a informações sobre o terreno e as condições adversas para tomar decisões de voo e certificar que a missão será um sucesso . |Baixa|Grande|Concluído|
+| 3 | Como piloto militar, quero ter uma trajetória que minimize a minha visibilidade, para inimigos não me identificarem facilmente. |Baixo|Alta|Concluído|
+| 4 | Como piloto militar, quero poder me comunicar com colegas e comandante em caso de emergências durante minhas missões. |Média|Baixa|Pendente|
 | 5 | Como piloto militar, quero saber o que embasou a escolha da rota para a missão, para estar a par. |Baixa|Baixa|Pendente|
-| 6 | Eu, como inteligência militar, quero garantir que a missão seja executada com a altitude mais baixa possível, para evitar que meu piloto e avião sejam abatidos. |Baixa|Alta|Pendente|
+| 6 | Eu, como inteligência militar, quero garantir que a missão seja executada com a altitude mais baixa possível, para evitar que meu piloto e avião sejam abatidos. |Baixa|Alta|Concluído|
 | 7 | Eu, como inteligência militar, quero fazer uma rota que seja compatível com a autonomia do avião, pois o combustível não pode terminar antes do pouso. |Média|Alta|Pendente|
-| 8 | Eu, como inteligência militar, quero que o trajeto tenha a menor variação de altitude possível, para evitar o gasto desnecessário de combustível. |Média|Baixa|Pendente|
+| 8 | Eu, como inteligência militar, quero que o trajeto tenha a menor variação de altitude possível, para evitar o gasto desnecessário de combustível. |Média|Baixa|Concluído|
 | 9 | Eu, como inteligência militar, quero traçar caminhos que evitem áreas indesejadas, como bases inimigas, para evitar a exposição da aeronave. |Média|Alta|Pendente|
-| 10 | Eu, como inteligência militar, quero uma aplicação que dê uma rota em menos de 1 minuto, para garantir que o planejamento emergencial aconteça dentro do tempo limite. |Alta|Baixa|Pendente|
+| 10 | Eu, como inteligência militar, quero uma aplicação que dê uma rota em menos de 1 minuto, para garantir que o planejamento emergencial aconteça dentro do tempo limite. |Alta|Baixa|Concluído|
 
 # Análise de Dados
 
