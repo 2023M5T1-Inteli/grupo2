@@ -68,9 +68,6 @@ Planejador de trajetórias para voos em baixa altitude.
     - [Restrições](#restrições)
     - [Detalhamento das restrições](#detalhamento-das-restrições)
     - [Conclusão](#conclusão-1)
-- [Referências](#referências)
-
-
 # Autores
 
 * Beny Frid
@@ -410,6 +407,3 @@ Dessa forma, as restrições garantem que a solução encontrada respeite as reg
 Dessa forma, o problema matemático pode ser resolvido por um algoritmo de caminho mínimo, como o algoritmo de Dijkstra ou o algoritmo de Bellman-Ford, que irá encontrar o caminho mínimo entre o ponto A e o ponto F.
 <br>
 <br>
-
-
-# Referências
