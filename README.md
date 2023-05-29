@@ -25,6 +25,6 @@ Os arquivos da documentação deste projeto estão na pasta [/docs](/docs), e o 
 
 Os arquivos do artigo estão na pasta [/artigo](/artigo). Um arquivo gerado no formato PDF deverá ser anexado a cada *release* do projeto.
 
-# Releases
+# Licença
 
-Deverá ser publicado um release ao término de cada *sprint* do projeto.
+Este projeto utiliza a [licença Apache 2.0](LICENSE).
