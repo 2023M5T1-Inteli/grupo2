@@ -3,7 +3,7 @@
 <td>
 <a href= "https://ael.com.br/"><img src="https://www.ael.com.br/images/ael.png" alt="AEL Sistemas" border="0" width="70%"></a>
 </td>
-<td><a href= "https://www.inteli.edu.br/"><img src="https://www.inteli.edu.br/wp-content/uploads/2021/08/20172028/marca_1-2.png" alt="Inteli - Instituto de Tecnologia e Liderança" border="0" width="30%"></a>
+<td><a href= "https://www.inteli.edu.br/"><img src="https://github.com/2023M5T1-Inteli/grupo2/blob/master/docs/img/marca_1-2.png?raw=true" alt="Inteli - Instituto de Tecnologia e Liderança" border="0" width="30%"></a>
 </td>
 </tr>
 </table>
